@@ -25,10 +25,26 @@ public class Client {
             String playerID = scanner.nextLine();
             out.println(playerID);
 
-            //Sending the numbers
+            System.out.println("\nWaiting for game to start...\n");
+
+            int myPlayerNum = Integer.parseInt(playerNum);
+
+            //Play the 2 rounds
+            for(int i =0; i<2; i++){
+                System.out.println("ROUND " + (i + 1) + ":");
+                 
+                //Once the client receives the information, it should send in a number
+                String request = in.readLine();
+                if(request.equals("SEND_NUMBER")){
+                    
+
+                }
+
+
+            }
 
             
-            //Once the client receives the information, it should send in a number of round 2
+           
 
 
             //The client, after receiving the information about who wins, should print a statement
@@ -38,10 +54,9 @@ public class Client {
 
 
             
-        } catch (Exception e) {
-
+        } catch (IOException e) {
+            System.out.println("Client error: " + e.getMessage());
+            e.printStackTrace();
         }
-
     }
-
 }
