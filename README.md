@@ -22,3 +22,5 @@ The following situation will lead to a player receiving 0 point for a round, and
 ### Note on Running/Testing
 Due to the Nature of this program as a client-server program, testing in your
 IDE is not realistic. You will need to clone the repo,  compile the client and server program , and then run each part seperately. I recommend using your favorite terminal/shell. I used WindowsPowerShell and `javac`/ `java` commands. Open 3 window of you terminal of choice. Have one first run the server then the next to run the players.
+
+![Photo of the set up Katie used to run program](GitHub/image.png)
