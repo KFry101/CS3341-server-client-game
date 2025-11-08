@@ -13,10 +13,10 @@ public class Server {
         return (a * b) / HCF.findHCF(a, b);
     }
 
-    public static boolean isValidNumber(int input, int player){
+    public static boolean isValidNumber(int input, int picked){
         for (int n : valid_numbers) {
             if (n == input) {
-                if (player ==1){
+                if (picked ==1){
                     return true;
                 }
                 else{
@@ -78,80 +78,108 @@ public class Server {
                 int scoreP1 = 0;
                 int scoreP2 = 0;
 
-                 // Determine who is player one/two in this round
+                // Determine who is player one/two in this round
                 int p1Num, p2Num;
                 boolean p1Valid, p2Valid;
 
                 if (i == 0){
                     // Round 1: Player 1 picks first (range 50-99), Player 2 picks second (range 60-99)
-                    p1Num = num1;
-                    p2Num = num2;
-                    p1Valid = isValidNumber(p1Num, 1);
-                    p2Valid = isValidNumber(p2Num, 2);
+                    p1Valid = isValidNumber(num1, 1);
+                    p2Valid = isValidNumber(num2, 2);
 
                 } else {
-                    p1Num = num1;
-                    p2Num = num2;
-                    p2Valid = isValidNumber(p2Num, 1);
-                    p1Valid = isValidNumber(p1Num, 2);
+                    // Round 2: Player 2 picks first (range 50-99), Player 1 picks second (range 60-99)
+                    p2Valid = isValidNumber(num2, 1);
+                    p1Valid = isValidNumber(num1, 2);
                 }
+
 
                 // Check if players picked the same number in both rounds
                 boolean p1SameNumber = (i == 1 && num1 == player1Rounds[0]);
                 boolean p2SameNumber = (i == 1 && num2 == player2Rounds[0]);
 
-                if(!p1Valid || p1SameNumber){
-                    scoreP1 = 0;
-                    if (p2Valid && !p2SameNumber) scoreP2 = 100;
-                }
-            
-                if ( !p2Valid || p2SameNumber){
-                    scoreP2 = 0;
-                    if (p1Valid && !p1SameNumber) scoreP1 = 100;
-                }
 
-                if (p1Valid && !p1SameNumber && p2Valid && !p2SameNumber) {
-                    if (i == 0) {
-                        // Round 1: P1 is first player, gets HCF
-                        scoreP1 = HCF.findHCF(num1, num2);
-                        // P2 is second player, gets last digit of LCM
-                        int lcm = findLCM(num1, num2);
-                        scoreP2 = lcm % 10;
-                    } else {
-                        // Round 2: P2 is first player, gets HCF
-                        scoreP2 = HCF.findHCF(num1, num2);
-                        // P1 is second player, gets last digit of LCM
-                        int lcm = findLCM(num1, num2);
-                        scoreP1 = lcm % 10;
+                //SCORE CALCULATIONS -----------------------------------
+                if(num1 != num2){
+
+                    if(!p1Valid || p1SameNumber){ // if player 1's # is prime, not in range, or it is same as round 1 during round 2
+                        scoreP1 = 0;
+                        if (p2Valid && !p2SameNumber) scoreP2 = 100;
                     }
+                
+                    if ( !p2Valid || p2SameNumber){ // if player 2's # is prime, not in range, or it is same as round 1 during round 2
+                        scoreP2 = 0;
+                        if (p1Valid && !p1SameNumber) scoreP1 = 100;
+                    }
+
+                    if (p1Valid && !p1SameNumber && p2Valid && !p2SameNumber) {
+                        if (i == 0) {
+                            // Round 1: P1 is first player, gets HCF of the two numbers
+                            scoreP1 = HCF.findHCF(num1, num2);
+                            // P2 is second player, gets last digit of LCM of the two numbers
+                            int lcm = findLCM(num1, num2);
+                            scoreP2 = lcm % 10;
+                        } else { 
+                            // Round 2: P2 is first player, gets HCF
+                            scoreP2 = HCF.findHCF(num1, num2);
+                            // P1 is second player, gets last digit of LCM
+                            int lcm = findLCM(num1, num2);
+                            scoreP1 = lcm % 10;
+                        }
+                    }
+                } 
+                else{ //If both players make the same choices, both will get 0 points
+                    scoreP1 = 0;
+                    scoreP2 = 0;
                 }
 
                 player1Rounds[i] = num1;
                 player2Rounds[i] = num2;
+
+                //Total Score Calculations
                 player1TotalScore += scoreP1;
                 player2TotalScore += scoreP2;
 
                 //And then sent the score of both players, together with the numbers both player picked, back to the client.
                 //The server should then print the result of round 1: including the number selected,and the score of each player. 
                 if (i == 0) {
-                    out1.println(num1 + "," + num2 + "," + scoreP1 + "," + scoreP2);
-                    out2.println(num1 + "," + num2 + "," + scoreP1 + "," + scoreP2);
+                    // sending it back to clients
+                    out1.println(num1 + "," + num2 + "," + scoreP1 + "," + scoreP2); //Sending results to client player 1
+                    out2.println(num1 + "," + num2 + "," + scoreP1 + "," + scoreP2); //Sending results to client player 2
+
+                    //Printing in server
+                    System.out.println("Player 1 (" + player1ID + ") chose: " + num1 + ", Score: " + scoreP1); 
+                    System.out.println("Player 2 (" + player2ID + ") chose: " + num2 + ", Score: " + scoreP2);
+
+                } else {
+                    //Then the server should calculate the score for round 2, and send the following to the players:
+                    // The score of round 2 for each player 
+                        //Calculated Above
+                    // The total score for each player 
+                        //Calculated Above
+                    
+                    //Whether the player win/lose/draw the match (sending 1/-1/0 respectively)
+                    int resultP1 = (player1TotalScore > player2TotalScore) ? 1 : (player1TotalScore < player2TotalScore) ? -1 : 0;
+                    int resultP2 = (player2TotalScore > player1TotalScore) ? 1 : (player2TotalScore < player1TotalScore) ? -1 : 0;
+
+                    // sending it back to clients
+                    out1.println(num1 + "," + num2 + "," + scoreP1 + "," + scoreP2 + "," + player1TotalScore + "," + player2TotalScore + "," + resultP1); //Sending all results to client player 1
+                    out2.println(num1 + "," + num2 + "," + scoreP1 + "," + scoreP2 + "," + player1TotalScore + "," + player2TotalScore + "," + resultP2); //Sending all results to client player 2
+
+
+                    /*The server should then print the result of round 2: including the number selected,
+                    and the score of each player, and then print out who is the winner. */
                     System.out.println("Player 1 (" + player1ID + ") chose: " + num1 + ", Score: " + scoreP1);
                     System.out.println("Player 2 (" + player2ID + ") chose: " + num2 + ", Score: " + scoreP2);
-                } else {
-                //Then the server should calculate the score for round 2, and send the following to the players
-                //  The score of round 2 for each player
-                //  The total score for each player
-                //  Whether the player win/lose/draw the match (sending 1/-1/0 respectively)
+                    System.out.println("\n=== GAME OVER ===");
+                    System.out.println("Final Score - " + player1ID + ": " + player1TotalScore + ", " + player2ID + ": " + player2TotalScore);
 
                 }
 
             }
-            /*The server should then print the result of round 2: including the number selected,
-            and the score of each player, and then print out who is the winner. */
+        
             player1Socket.close();
             player2Socket.close();
-
             //The server should also quit.
             System.out.println("\nServer shutting down...");          
 
