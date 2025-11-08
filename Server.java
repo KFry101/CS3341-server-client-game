@@ -53,7 +53,7 @@ public class Server {
             String player1ID = in1.readLine();
             String player2ID = in2.readLine();
 
-            System.out.println(player1ID + " vs. " + player2ID + ": Game start");
+            System.out.println(player1ID + " vs. " + player2ID + ": Game start\n");
 
             int[] player1Rounds = new int[2];
             int[] player2Rounds = new int[2];
@@ -62,7 +62,7 @@ public class Server {
 
             //play 2 rounds
             for(int i =0; i<2; i++){
-                System.out.println("ROUND " + (i + 1) + ":");
+                System.out.println("\nROUND " + (i + 1) + ":");
                  
                 //Then the server should send a request to ask the two players to send in the first number.
                 out1.println("SEND_NUMBER");
