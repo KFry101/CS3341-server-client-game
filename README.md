@@ -1,4 +1,6 @@
 CS 3341 Fall 2025
+Foundations of Modern Computing
+---
 # The HCF/LCM game
 The game is a competition between two players. Each round player one will select a
 number between 50 – 99 that is not prime. Then player two will pick a number between 60-
@@ -15,3 +17,8 @@ The following situation will lead to a player receiving 0 point for a round, and
 - The player picked a prime number
 - The player picked a number outside the range 
 - The player picked the same numbers in both rounds
+
+
+### Note on Running/Testing
+Due to the Nature of this program as a client-server program, testing in your
+IDE is not realistic. You will need to clone the repo,  compile the client and server program , and then run each part seperately. I recommend using your favorite terminal/shell. I used WindowsPowerShell and `javac`/ `java` commands. Open 3 window of you terminal of choice. Have one first run the server then the next to run the players.
