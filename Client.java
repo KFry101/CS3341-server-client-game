@@ -82,8 +82,6 @@ public class Client {
                     System.out.println("Player 2 Final Score: " + totalP2);
                     System.out.println("\n");
 
-
-
                     if (winResult == 1) {
                         System.out.println("\nCongratulations! You WON!");
                     } else if (winResult == -1) {

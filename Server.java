@@ -149,7 +149,7 @@ public class Server {
 
                     //Printing in server
                     System.out.println("Player 1 (" + player1ID + ") chose: " + num1 + ", Score: " + scoreP1); 
-                    System.out.println("Player 2 (" + player2ID + ") chose: " + num2 + ", Score: " + scoreP2);
+                    System.out.println("Player 2 (" + player2ID + ") chose: " + num2 + ", Score: " + scoreP2 + "\n");
 
                 } else {
                     //Then the server should calculate the score for round 2, and send the following to the players:
