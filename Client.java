@@ -50,14 +50,31 @@ public class Client {
                         System.out.println("You are picking the SECOND this round (range: 60-99)");
                     }
 
-                    System.out.print("Enter a non-prime number between " + minRange + "-" + maxRange + ": ");
-                    String numberStr = scanner.nextLine();
+                    /*
+                    ADDING SOME MORE GAME LIKE MECHANICS (I felt like it):
+                     A Retry for number entry if input is a non-number
+                    (Does not check for number value validity since that is part of scoring)
+                    */
+
+                    String numberStr = null;
+                    boolean validInput = false;
+
+                    while(!validInput){ // simple game valid imput testing and retry loop
+                        System.out.print("Enter a non-prime number between " + minRange + "-" + maxRange + ": ");
+                        numberStr = scanner.nextLine();
+
+                        try {
+                            Integer.parseInt(numberStr);
+                            validInput = true;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Input Error: Please enter a number.");
+                        }
+                    }
 
                     out.println(numberStr);
 
                 }
 
-                //The client, after receiving the information about who wins, should print a statement
 
                 String scoreResult = in.readLine(); //Recieveing the round results 
                 String[] resultParts = scoreResult.split(",");
@@ -66,7 +83,8 @@ public class Client {
                 int num2 = Integer.parseInt(resultParts[1]);
                 int scoreP1 = Integer.parseInt(resultParts[2]);
                 int scoreP2 = Integer.parseInt(resultParts[3]);
-                
+
+                //The client, after receiving the information about who wins, should print a statement                
                 System.out.println("\n--- Round " + (r + 1) + " Results ---");
                 System.out.println("Player 1 chose: " + num1 + " (Score: " + scoreP1 + ")");
                 System.out.println("Player 2 chose: " + num2 + " (Score: " + scoreP2 + ") \n");
@@ -80,7 +98,6 @@ public class Client {
                     System.out.println("\n---- GAME OVER ----");
                     System.out.println("Player 1 Final Score: " + totalP1);
                     System.out.println("Player 2 Final Score: " + totalP2);
-                    System.out.println("\n");
 
                     if (winResult == 1) {
                         System.out.println("\nCongratulations! You WON!");
@@ -94,7 +111,7 @@ public class Client {
             }
 
             //After that, the client should disconnect from the server, and quit
-            System.out.println("Disconnecting from server...");
+            System.out.println("\nDisconnecting from server...");
 
             
         } catch (IOException e) {
