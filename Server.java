@@ -113,15 +113,15 @@ public class Server {
 
                     if (p1Valid && !p1SameNumber && p2Valid && !p2SameNumber) {
                         if (i == 0) {
-                            // Round 1: P1 is first player, gets HCF of the two numbers
+                            // Round 1: P1 is first picker, gets HCF of the two numbers
                             scoreP1 = HCF.findHCF(num1, num2);
-                            // P2 is second player, gets last digit of LCM of the two numbers
+                            // P2 is second picker, gets last digit of LCM of the two numbers
                             int lcm = findLCM(num1, num2);
                             scoreP2 = lcm % 10;
                         } else { 
-                            // Round 2: P2 is first player, gets HCF
+                            // Round 2: P2 is first picker, gets HCF
                             scoreP2 = HCF.findHCF(num1, num2);
-                            // P1 is second player, gets last digit of LCM
+                            // P1 is second picker, gets last digit of LCM
                             int lcm = findLCM(num1, num2);
                             scoreP1 = lcm % 10;
                         }

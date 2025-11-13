@@ -46,13 +46,13 @@ public class Client {
                         // Player picks second (60-99)
                         minRange = 60;
                         maxRange = 99;
-                         System.out.println("ROUND " + (r + 1) + ":");
+                        System.out.println("ROUND " + (r + 1) + ":");
                         System.out.println("You are picking the SECOND this round (range: 60-99)");
                     }
 
                     /*
                     ADDING SOME MORE GAME LIKE MECHANICS (I felt like it):
-                     A Retry Mechanic for number entry if input is a non-number 
+                    A Retry Mechanic for number entry if input is a non-number 
                     (Does not check for number value validity since that is part of scoring)
                     */
                     String numberStr = null;
@@ -72,7 +72,7 @@ public class Client {
                 }
 
 
-                String scoreResult = in.readLine(); //Recieveing the round results 
+                String scoreResult = in.readLine(); //Recieving the round results 
                 String[] resultParts = scoreResult.split(",");
 
                 int num1 = Integer.parseInt(resultParts[0]);
@@ -80,13 +80,13 @@ public class Client {
                 int scoreP1 = Integer.parseInt(resultParts[2]);
                 int scoreP2 = Integer.parseInt(resultParts[3]);
 
-                //The client, after receiving the information about who wins, should print a statement                
+                //The client, after receiving the information about who wins (the round), should print a statement                
                 System.out.println("\n--- Round " + (r + 1) + " Results ---");
                 System.out.println("Player 1 chose: " + num1 + " (Score: " + scoreP1 + ")");
                 System.out.println("Player 2 chose: " + num2 + " (Score: " + scoreP2 + ") \n");
 
                 if(r==1){
-                    // The client, after receiving the information about who wins, should print a statement (you can select what statement to print, it must be different for the 3 cases, and please, no inappropriate language).
+                    // The client, after receiving the information about who wins (the whole game), should print a statement (you can select what statement to print, it must be different for the 3 cases, and please, no inappropriate language).
                     int totalP1 = Integer.parseInt(resultParts[4]);
                     int totalP2 = Integer.parseInt(resultParts[5]);
                     int winResult = Integer.parseInt(resultParts[6]);
