@@ -52,13 +52,11 @@ public class Client {
 
                     /*
                     ADDING SOME MORE GAME LIKE MECHANICS (I felt like it):
-                     A Retry for number entry if input is a non-number
+                     A Retry Mechanic for number entry if input is a non-number 
                     (Does not check for number value validity since that is part of scoring)
                     */
-
                     String numberStr = null;
                     boolean validInput = false;
-
                     while(!validInput){ // simple game valid imput testing and retry loop
                         System.out.print("Enter a non-prime number between " + minRange + "-" + maxRange + ": ");
                         numberStr = scanner.nextLine();
@@ -70,9 +68,7 @@ public class Client {
                             System.out.println("Input Error: Please enter a number.");
                         }
                     }
-
                     out.println(numberStr);
-
                 }
 
 
@@ -104,7 +100,7 @@ public class Client {
                     } else if (winResult == -1) {
                         System.out.println("\nYou LOST. Better luck next time!");
                     } else {
-                        System.out.println("\n It's a DRAW!");
+                        System.out.println("\nIt's a DRAW! Good game.");
                     }
                 }
 

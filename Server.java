@@ -68,7 +68,7 @@ public class Server {
                 out1.println("SEND_NUMBER");
                 out2.println("SEND_NUMBER");
 
-                //Once the server receives the numbers, it should calculate the score for this round. 
+                //Once the server receives the numbers, it should calculate the score for this round.... 
                 String num1In = in1.readLine();
                 String num2In= in2.readLine();
 
@@ -79,7 +79,6 @@ public class Server {
                 int scoreP2 = 0;
 
                 // Determine who is player one/two in this round
-                int p1Num, p2Num;
                 boolean p1Valid, p2Valid;
 
                 if (i == 0){
@@ -140,7 +139,7 @@ public class Server {
                 player1TotalScore += scoreP1;
                 player2TotalScore += scoreP2;
 
-                //And then sent the score of both players, together with the numbers both player picked, back to the client.
+                //....And then sent the score of both players, together with the numbers both player picked, back to the client.
                 //The server should then print the result of round 1: including the number selected,and the score of each player. 
                 if (i == 0) {
                     // sending it back to clients
@@ -152,12 +151,9 @@ public class Server {
                     System.out.println("Player 2 (" + player2ID + ") chose: " + num2 + ", Score: " + scoreP2 + "\n");
 
                 } else {
-                    //Then the server should calculate the score for round 2, and send the following to the players:
+                    //Then the server should calculate the score for round 2 (calculated above), and send the following to the players:
                     // The score of round 2 for each player 
-                        //Calculated Above
                     // The total score for each player 
-                        //Calculated Above
-                    
                     //Whether the player win/lose/draw the match (sending 1/-1/0 respectively)
                     int resultP1 = (player1TotalScore > player2TotalScore) ? 1 : (player1TotalScore < player2TotalScore) ? -1 : 0;
                     int resultP2 = (player2TotalScore > player1TotalScore) ? 1 : (player2TotalScore < player1TotalScore) ? -1 : 0;
